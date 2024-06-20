@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administración de Participantes</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+</head>
+<body>
+    <div class="container">
+        <h1>Administración de Participantes</h1>
+        <table class="table table-dark">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Foto</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Años de experiencia</th>
+                    <th scope="col">Especialidad</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Acción</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each participantes}}
+                <tr>
+                    <th scope="row">{{this.id}}</th>
+                    <td><img src="{{this.foto}}" alt="Foto de {{this.nombre}}" width="50"/></td>
+                    <td>{{this.nombre}}</td>
+                    <td>{{this.anos_experiencia}}</td>
+                    <td>{{this.especialidad}}</td>
+                    <td class="{{#if this.estado}}text-success{{else}}text-warning{{/if}} font-weight-bold">
+                        {{#if this.estado}}Aprobado{{else}}En revisión{{/if}}
+                    </td>
+                    <td>
+                        {{#if this.estado}}
+                        <button class="btn btn-warning" onclick="changeStatus('{{this.id}}', false)">Rechazar</button>
+                        {{else}}
+                        <button class="btn btn-success" onclick="changeStatus('{{this.id}}', true)">Aprobar</button>
+                        {{/if}}
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+    <script>
+        function changeStatus(id, status) {
+            fetch(`/admin/change-status/${id}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ estado: status })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    window.location.reload();
+                }
+            });
+        }
+    </script>
+</body>
+</html>

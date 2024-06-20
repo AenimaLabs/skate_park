@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil del Usuario</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+</head>
+<body>
+    <div class="container">
+        <h1>Perfil del Usuario</h1>
+        <form action="/perfil" method="POST">
+            <div class="form-group">
+                <label for="nombre">Nombre</label>
+                <input type="text" class="form-control" id="nombre" name="nombre" value="{{user.nombre}}" required>
+            </div>
+            <div class="form-group">
+                <label for="anos_experiencia">Años de Experiencia</label>
+                <input type="number" class="form-control" id="anos_experiencia" name="anos_experiencia" value="{{user.anos_experiencia}}" required>
+            </div>
+            <div class="form-group">
+                <label for="especialidad">Especialidad</label>
+                <input type="text" class="form-control" id="especialidad" name="especialidad" value="{{user.especialidad}}" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+        </form>
+    </div>
+</body>
+</html>
